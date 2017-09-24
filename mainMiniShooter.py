@@ -39,9 +39,9 @@ while not crash:
                 moveRight = False
             if event.key == pygame.K_LEFT:
                 moveLeft = False
-    if moveLeft == True:
+    if moveLeft == True and x > 0:
         x = x - 3
-    if moveRight == True:
+    if moveRight == True and x < displayWidth - mainCharImg.get_size()[0]:
         x = x + 3
         print event
 
