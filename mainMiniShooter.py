@@ -25,16 +25,23 @@ def mainChar(x, y): #display main character
 def enemy(x, y): #display enemy
     miniShooterDisplay.blit(mainCharImg, (x, y))
 
+def enemiesDodged():
+
+
 x = displayWidth * 0.4
 y = displayHeight * 0.875
+mainCharWidth = mainCharImg.get_size()[0]
+mainCHarHeight = mainCharImg.get_size()[1]
 moveLeft = False
 moveRight= False
 clock = pygame.time.Clock()
 crash = False
 enemyHeight = enemyImg.get_size()[1]
-enemyStartX = random.randrange(0, displayWidth - enemyImg.get_size()[0])
+enemyWidth = enemyImg.get_size()[0]
+enemyStartX = random.randrange(0, displayWidth - enemyWidth)
 enemyStartY = 0 - enemyHeight
 enemySpeed = 7
+
 while not crash:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -51,7 +58,7 @@ while not crash:
                 moveLeft = False
     if moveLeft == True and x > 0:
         x = x - 3
-    if moveRight == True and x < displayWidth - mainCharImg.get_size()[0]:
+    if moveRight == True and x < displayWidth - mainCharWidth:
         x = x + 3
         print event
 
@@ -62,7 +69,9 @@ while not crash:
     if enemyStartY > displayHeight:
         enemyStartY = 0 - enemyHeight
         enemyStartX = random.randrange(0, displayWidth - enemyImg.get_size()[0])
-
+    if y < enemyStartY + enemyHeight:
+        if x > enemyStartX and x < enemyStartX + enemyWidth or x + mainCharWidth > enemyStartX and x + mainCharWidth < enemyStartX + enemyWidth:
+            print('YOU DEAD BOI')
     pygame.display.update()
     clock.tick(60)
 pygame.quit()
