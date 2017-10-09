@@ -26,7 +26,7 @@ def enemy(x, y): #display enemy
     miniShooterDisplay.blit(mainCharImg, (x, y))
 
 def enemiesDodged():
-
+ font = pygame.font.SysFont(None, 24)
 
 x = displayWidth * 0.4
 y = displayHeight * 0.875
