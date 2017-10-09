@@ -1,4 +1,5 @@
 import pygame
+import random
 pygame.init()
 
 displayWidth = 450
@@ -10,14 +11,19 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+ORANGE = (255,127,80)
 
 miniShooterDisplay = pygame.display.set_mode((displayWidth, displayHeight))
 pygame.display.set_caption("Mini Shooter") #Title of game
 
 mainCharImg = pygame.image.load("characterModels/mainGuy.png")
+enemyImg = pygame.image.load("characterModels/mainGuy.png")
 
 def mainChar(x, y): #display main character
     miniShooterDisplay.blit(mainCharImg, (x,y))
+
+def enemy(x, y): #display enemy
+    miniShooterDisplay.blit(mainCharImg, (x, y))
 
 x = displayWidth * 0.4
 y = displayHeight * 0.875
@@ -25,6 +31,10 @@ moveLeft = False
 moveRight= False
 clock = pygame.time.Clock()
 crash = False
+enemyHeight = enemyImg.get_size()[1]
+enemyStartX = random.randrange(0, displayWidth - enemyImg.get_size()[0])
+enemyStartY = 0 - enemyHeight
+enemySpeed = 7
 while not crash:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -45,8 +55,13 @@ while not crash:
         x = x + 3
         print event
 
-    miniShooterDisplay.fill(WHITE)
+    miniShooterDisplay.fill(ORANGE)
+    enemy(enemyStartX, enemyStartY)
+    enemyStartY = enemyStartY + enemySpeed
     mainChar(x, y)
+    if enemyStartY > displayHeight:
+        enemyStartY = 0 - enemyHeight
+        enemyStartX = random.randrange(0, displayWidth - enemyImg.get_size()[0])
 
     pygame.display.update()
     clock.tick(60)
