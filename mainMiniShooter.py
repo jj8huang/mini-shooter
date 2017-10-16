@@ -26,7 +26,22 @@ def enemy(x, y): #display enemy
     miniShooterDisplay.blit(mainCharImg, (x, y))
 
 def enemiesDodged():
- font = pygame.font.SysFont(None, 24)
+    font = pygame.font.SysFont(None, 24)
+
+def text_objects(msg, font):
+    textSurface = font.render(msg, True, WHITE)
+    return textSurface, textSurface.get_rect()
+
+def displayMessage(message):
+    largeText = pygame.font.Font('freesansbold.ttf', 115)
+    TextSurf, TextRect = text_objects(message, largeText)
+    TextRect.center = ((displayWidth/2),(displayHeight/2))
+    miniShooterDisplay.blit(TextSurf, TextRect)
+    pygame.display.update()
+
+
+def rip():
+    displayMessage("R.I.P.")
 
 x = displayWidth * 0.4
 y = displayHeight * 0.875
@@ -71,7 +86,7 @@ while not crash:
         enemyStartX = random.randrange(0, displayWidth - enemyImg.get_size()[0])
     if y < enemyStartY + enemyHeight:
         if x > enemyStartX and x < enemyStartX + enemyWidth or x + mainCharWidth > enemyStartX and x + mainCharWidth < enemyStartX + enemyWidth:
-            print('YOU DEAD BOI')
+            rip()
     pygame.display.update()
     clock.tick(60)
 pygame.quit()
